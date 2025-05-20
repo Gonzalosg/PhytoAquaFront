@@ -5,6 +5,7 @@ import PrivateRoute from "./Components/PrivateRoute";
 import Layout from "./Components/Layout";
 import Obras from "./Views/Obras";
 import Albaranes from "./Views/Albaranes";
+import Usuarios from "./Views/Usuarios";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="obras" element={<Obras />} />
           <Route path="albaranes" element={<Albaranes />} />
+          <Route path="usuarios" element={<Usuarios />} />
         </Route>
       </Routes>
     </BrowserRouter>

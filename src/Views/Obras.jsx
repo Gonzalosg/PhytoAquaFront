@@ -6,6 +6,8 @@ import ModalCrearObra from "../Components/ModalCrearObra";
 import ModalAsignarEmpleado from "../Components/ModalAsignarEmpleado";
 import CrearObra from "../Components/CrearObra";
 import Logo from "../img/Logo.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Obras() {
   const [obras, setObras] = useState([]);
@@ -97,8 +99,10 @@ function Obras() {
       setFormData({ id: 0, nombre: "", direccion: "", clienteId: "", clienteNombre: "" });
       cargarObras();
       setModalAbierto(false);
+      toast.success("✅ Obra guardada correctamente");
     } catch (err) {
       console.error("Error al crear o editar obra", err);
+      toast.error("❌ Error al guardar la obra");
     }
   };
 
@@ -111,8 +115,10 @@ function Obras() {
       setAsignacion({ usuarioId: "", obraId: "" });
       cargarObras();
       setModalAsignarAbierto(false);
+      toast.success("✅ Empleado asignado correctamente");
     } catch (err) {
       console.error("Error al asignar usuario a obra", err);
+      toast.error("❌ Error al asignar empleado");
     }
   };
 
@@ -137,14 +143,17 @@ function Obras() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       cargarObras();
+      toast.success("🗑️ Obra eliminada correctamente");
     } catch (err) {
       console.error("Error al eliminar obra", err);
+      toast.error("❌ Error al eliminar la obra");
     }
   };
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-green-100 to-green-300 flex justify-center items-start py-6 px-4 relative">
       <div className="w-full max-w-4xl mx-auto">
+        <ToastContainer />
         <div className="text-center mb-6">
           <img src={Logo} alt="FitoAqua Logo" className="mx-auto w-52 sm:w-64 h-auto" />
         </div>
@@ -186,7 +195,6 @@ function Obras() {
                     onSubmit={handleSubmit}
                     usuarios={usuarios.filter((u) => u.rol === "Cliente")}
                   />
-                  
                   <AsignarEmpleado />
                 </div>
 

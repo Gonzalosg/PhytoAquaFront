@@ -1,11 +1,11 @@
-// src/Components/Sidebar.jsx
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Sidebar() {
   const rol = localStorage.getItem("rol");
   const [isOpen, setIsOpen] = useState(false);
   const sidebarRef = useRef();
+  const location = useLocation();
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -17,38 +17,64 @@ function Sidebar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const linkClasses = (path) =>
+    `flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+      location.pathname === path
+        ? "bg-blue-100 text-blue-700 font-semibold"
+        : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+    }`;
+
   return (
     <>
       {/* Botón Menú en móvil */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-2 left-2 z-30 bg-blue-600 text-white px-3 py-1 rounded shadow-md md:hidden"
+        className="fixed top-4 left-4 z-40 bg-blue-600 text-white px-3 py-2 rounded-full shadow-md md:hidden"
       >
-        Menú
+        ☰
       </button>
+
 
       {/* Sidebar */}
       <aside
         ref={sidebarRef}
-        className={`bg-white w-64 p-6 shadow-md h-full fixed top-0 left-0 z-20 transform transition-transform duration-300 ease-in-out
-          ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 md:static md:block`}
+        className={`bg-white w-64 h-full fixed top-0 left-0 z-20 shadow-lg transform transition-transform duration-300 ease-in-out
+        ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 md:static md:block p-6`}
       >
-       <h2 className="text-xl font-bold text-blue-600 mt-8 mb-8">FitoAqua</h2>
+        {/* Logo / Título */}
+        <div className="text-2xl font-extrabold text-blue-600 mb-6 border-b pb-2">
+          FitoAqua
+        </div>
 
-        <nav className="space-y-4">
+        <nav className="flex flex-col space-y-2 text-base">
           {rol === "Administrador" && (
             <>
-              <Link to="/dashboard/obras" className="block text-gray-700 hover:text-blue-600">Obras</Link>
-              <Link to="/dashboard/albaranes" className="block text-gray-700 hover:text-blue-600">Albaranes</Link>
-              <Link to="/dashboard/incidencias" className="block text-gray-700 hover:text-blue-600">Incidencias</Link>
+              <Link to="/dashboard/usuarios" className={linkClasses("/dashboard/usuarios")}>
+                👥 Usuarios
+              </Link>
+              <Link to="/dashboard/obras" className={linkClasses("/dashboard/obras")}>
+                🏗️ Obras
+              </Link>
+              <Link to="/dashboard/albaranes" className={linkClasses("/dashboard/albaranes")}>
+                📦 Albaranes
+              </Link>
+              <Link to="/dashboard/incidencias" className={linkClasses("/dashboard/incidencias")}>
+                ⚠️ Incidencias
+              </Link>
             </>
           )}
 
           {rol === "Empleado" && (
             <>
-              <Link to="/dashboard/obras" className="block text-gray-700 hover:text-blue-600">Mis Obras</Link>
-              <Link to="/dashboard/albaranes" className="block text-gray-700 hover:text-blue-600">Mis Albaranes</Link>
-              <Link to="/dashboard/incidencias" className="block text-gray-700 hover:text-blue-600">Incidencias</Link>
+              <Link to="/dashboard/obras" className={linkClasses("/dashboard/obras")}>
+                🏗️ Mis Obras
+              </Link>
+              <Link to="/dashboard/albaranes" className={linkClasses("/dashboard/albaranes")}>
+                📦 Mis Albaranes
+              </Link>
+              <Link to="/dashboard/incidencias" className={linkClasses("/dashboard/incidencias")}>
+                ⚠️ Incidencias
+              </Link>
             </>
           )}
         </nav>

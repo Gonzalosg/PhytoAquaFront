@@ -18,7 +18,7 @@ function Layout() {
       </div>
 
       {/* Contenido principal */}
-      <div className="relative px-4 pt-4 md:pt-20 md:px-8 md:col-start-2 md:row-start-1">
+      <div className="relative px-4 pt-2 md:pt-4 md:px-8 md:col-start-2 md:row-start-1">
         <Outlet />
       </div>
 
