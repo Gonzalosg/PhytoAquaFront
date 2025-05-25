@@ -43,7 +43,7 @@ function Sidebar() {
       >
         {/* Logo / Título */}
         <div className="text-2xl font-extrabold text-blue-600 mb-6 border-b pb-2">
-          FitoAqua
+          Menú
         </div>
 
         <nav className="flex flex-col space-y-2 text-base">
@@ -55,6 +55,10 @@ function Sidebar() {
               <Link to="/dashboard/obras" className={linkClasses("/dashboard/obras")}>
                 🏗️ Obras
               </Link>
+               <Link to="/dashboard/inventario" className={linkClasses("/dashboard/iventario")}>
+                🏗️ Inventario
+              </Link>
+              
               <Link to="/dashboard/albaranes" className={linkClasses("/dashboard/albaranes")}>
                 📦 Albaranes
               </Link>
@@ -72,6 +76,18 @@ function Sidebar() {
               <Link to="/dashboard/albaranes" className={linkClasses("/dashboard/albaranes")}>
                 📦 Mis Albaranes
               </Link>
+              <Link to="/dashboard/incidencias" className={linkClasses("/dashboard/incidencias")}>
+                ⚠️ Incidencias
+              </Link>
+            </>
+          )}
+
+              {rol === "Cliente" && (
+            <>
+              <Link to="/dashboard/obras" className={linkClasses("/dashboard/obras")}>
+                🏗️ Mis Obras
+              </Link>
+           
               <Link to="/dashboard/incidencias" className={linkClasses("/dashboard/incidencias")}>
                 ⚠️ Incidencias
               </Link>

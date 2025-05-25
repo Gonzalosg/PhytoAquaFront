@@ -233,6 +233,67 @@ function Obras() {
             </>
           )}
 
+                {rol === "Empleado" && (
+        <div className="space-y-4 pt-4">
+          {obras
+            .filter((obra) =>
+              empleadosPorObra[obra.id]?.includes(usuario.name)
+            )
+            .map((obra) => (
+              <div
+                key={obra.id}
+                className="bg-white rounded-xl shadow-md p-4 border border-gray-100"
+              >
+                <h2 className="text-lg font-semibold text-blue-700 mb-2">
+                  {obra.nombre}
+                </h2>
+                <p className="text-sm">
+                  <span className="font-semibold text-gray-600">📍 Dirección:</span>{" "}
+                  {obra.direccion}
+                </p>
+                <p className="text-sm">
+                  <span className="font-semibold text-gray-600">👤 Cliente:</span>{" "}
+                  {obra.clienteNombre}
+                </p>
+                <p className="text-sm">
+                  <span className="font-semibold text-gray-600">👷 Empleados:</span>{" "}
+                  {empleadosPorObra[obra.id]?.join(", ") || "Sin empleados"}
+                </p>
+              </div>
+            ))}
+        </div>
+      )}
+
+                {rol === "Cliente" && (
+          <div className="space-y-4 pt-4">
+            {obras
+              .filter((obra) => obra.clienteId === usuario.id)
+              .map((obra) => (
+                <div
+                  key={obra.id}
+                  className="bg-white rounded-xl shadow-md p-4 border border-gray-100"
+                >
+                  <h2 className="text-lg font-semibold text-blue-700 mb-2">
+                    {obra.nombre}
+                  </h2>
+                  <p className="text-sm">
+                    <span className="font-semibold text-gray-600">📍 Dirección:</span>{" "}
+                    {obra.direccion}
+                  </p>
+                  <p className="text-sm">
+                    <span className="font-semibold text-gray-600">👤 Cliente:</span>{" "}
+                    {obra.clienteNombre}
+                  </p>
+                  <p className="text-sm">
+                    <span className="font-semibold text-gray-600">👷 Empleados:</span>{" "}
+                    {empleadosPorObra[obra.id]?.join(", ") || "Sin empleados"}
+                  </p>
+                </div>
+              ))}
+          </div>
+        )}
+
+
           {mostrarObrasMovil && (
             <div className="md:hidden space-y-4 pt-4">
               {obras.map((obra) => (
